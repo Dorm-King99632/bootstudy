@@ -2,6 +2,7 @@ package com.dormking.bootstudy.controller;
 
 import com.dormking.bootstudy.bean.Position;
 import com.dormking.bootstudy.mapper.PositionMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -21,6 +22,7 @@ import javax.annotation.Resource;
 
 @Controller
 @ResponseBody
+@Slf4j
 public class RedisController {
 
     @Resource
@@ -37,20 +39,16 @@ public class RedisController {
 
     @GetMapping("/mysqlData")
     public Position getDataFromMysql(){
-//        long start = System.currentTimeMillis();
         Position result = positionMapper.getPositionByName("妹妹");
-        positionRedisTemplate.opsForValue().set("position-1", result);
-//        long end = System.currentTimeMillis();
-//        System.out.println(end - start);
+        log.info("RedisController -- getDataFromMysql:" + result);
+        //positionRedisTemplate.opsForValue().set("position-1", result);
         return result;
     }
 
     @GetMapping("/redisData")
     public Position getDataFromRedis(){
-//        long start = System.currentTimeMillis();
         Position result = positionRedisTemplate.opsForValue().get("position-1");
-//        long end = System.currentTimeMillis();
-//        System.out.println(end - start);
+        log.info("RedisController -- getDataFromRedis:" + result);
         return result;
     }
 
