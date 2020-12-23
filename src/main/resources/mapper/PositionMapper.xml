@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dormking.bootstudy.mapper.PositionMapper">
+    <!-- yml 文件中配置了entities所在包，因此只需写Payment即可，如果不写则需要写全名-->
+    <!-- useGeneratedKeys: 数据库查询成功会返回数字，数字大于 0 则插入成功，否则插入失败 -->
+    <!-- keyProperty 主键 -->
+    <insert id="create" parameterType="com.dormking.bootstudy.bean.Position" useGeneratedKeys="true" keyProperty="id">
+        insert into data_position (position_x, position_y, name) values (#{position_X}, #{position_y}, #{name});
+    </insert>
+
+
+    <!-- 注意 jdbcType 要写 INTEGER 而不是 INT -->
+    <resultMap id="BaseResultMap" type="com.dormking.bootstudy.bean.Position">
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <id column="position_x" property="position_x" jdbcType="DOUBLE" />
+        <id column="position_y" property="position_y" jdbcType="DOUBLE" />
+        <id column="name" property="name" jdbcType="VARCHAR" />
+        <id column="ip" property="ip" jdbcType="VARCHAR" />
+        <id column="cId" property="cId" jdbcType="VARCHAR" />
+        <id column="employeeId" property="employeeId" jdbcType="INTEGER" />
+        <id column="mapName" property="mapName" jdbcType="VARCHAR" />
+        <id column="mapId" property="mapId" jdbcType="INTEGER" />
+    </resultMap>
+
+    <select id="getPositionByName" parameterType="STRING" resultMap="BaseResultMap" >
+        select name, position_x, position_y from data_position where name = #{name} order by id desc limit 1;
+    </select>
+</mapper>

@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    initialization-mode: always
+    username: root
+    password: wf996321
+    url: jdbc:mysql://localhost:3306/chat_dev?useSSL=FALSE&serverTimezone=GMT%2B8
+    #?serverTimezone=GMT%2B8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+  redis:
+    host: 127.0.0.1
+    password: wf996321
+
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml
+
+#开启 debug，若查询数据库则会打印 sql 语句，若没有打印，这说明使用了 redis 而没有从数据库查询
+debug: true
